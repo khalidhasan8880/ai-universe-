@@ -1,13 +1,14 @@
 const getData = () => {
     fetch('https://openapi.programming-hero.com/api/ai/tools')
         .then(res => res.json())
-        .then(data => displayData(data.data))
+        .then(data => displayData(data.data.tools))
 }
 
-const displayData = (data) => {
+const displayData = (allTools) => {
     
     const cardContainer = document.getElementById('card-container')
-    data.tools.forEach(element => {
+    tools = allTools.slice(0,6)
+    tools.forEach(element => {
 
         console.log(element);
         const div =  document.createElement('div');
