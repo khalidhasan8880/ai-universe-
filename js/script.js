@@ -1,4 +1,6 @@
+
 const getData = () => {
+    spinner(true)
     fetch('https://openapi.programming-hero.com/api/ai/tools')
         .then(res => res.json())
         .then(data => displayData(data.data.tools))
@@ -7,8 +9,8 @@ const getData = () => {
 const displayData = (allTools) => {
     
     const cardContainer = document.getElementById('card-container')
-    tools = allTools.slice(0,6)
-    tools.forEach(element => {
+    
+    allTools.forEach(element => {
 
         console.log(element);
         const div =  document.createElement('div');
@@ -42,6 +44,24 @@ const displayData = (allTools) => {
         </li>`;
         div.appendChild(cardFooter);
     });
+    spinner(false)
 
+    // document.getElementById('see-more').addEventListener('click', function (params) {
+    //     console.log('hlo');
+    // })
 }
+
+
+// spinner 
+const spinner = (isSpin)=>{
+    const spinnerDiv = document.getElementById('spinner');
+    if (isSpin) {
+        spinnerDiv.classList.remove('d-none')
+    }
+    else{
+        spinnerDiv.classList.add('d-none')
+    }
+}
+
 getData()
+console.log(seeMore);

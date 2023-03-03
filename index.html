@@ -22,6 +22,12 @@
         <h2>Ai Universe Hub</h2>
         <button class="btn btn-danger my-3">Sort By Date</button>
     </header>
+    <!-- spinner -->
+    <div class="d-flex justify-content-center mt-5">
+        <div  id="spinner" class="spinner-border text-danger d-none" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     <!-- main -->
     <main class="container">
         <section id="card-container" class="d-flex flex-wrap justify-content-center gap-2">
@@ -29,8 +35,8 @@
         </section>
 
         <!--  -->
-        <div class="d-flex justify-content-center my-5">
-            <button class="btn btn-danger">see more</button>
+        <div class="d-flex justify-content-center my-5"> 
+            <button id="see-more" class="btn btn-danger">see more</button>
         </div>
 
     </main>
