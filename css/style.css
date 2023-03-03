@@ -1,3 +1,7 @@
 .card{
     width: 25rem;
 }
+.plan-card{
+    width: 120;
+    height: 100;
+}

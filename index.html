@@ -13,7 +13,7 @@
     <script src="https://kit.fontawesome.com/c878e2cf9f.js" crossorigin="anonymous"></script>
     <!-- custom css -->
     <link rel="stylesheet" href="css/style.css">
-   
+
 </head>
 
 <body>
@@ -24,21 +24,69 @@
     </header>
     <!-- spinner -->
     <div class="d-flex justify-content-center mt-5">
-        <div  id="spinner" class="spinner-border text-danger d-none" role="status">
+        <div id="spinner" class="spinner-border text-danger d-none" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
     <!-- main -->
     <main class="container">
         <section id="card-container" class="d-flex flex-wrap justify-content-center gap-2">
-            
+
         </section>
 
-        <!--  -->
-        <div class="d-flex justify-content-center my-5"> 
+        <!-- see more btn  -->
+        <div class="d-flex justify-content-center my-5">
             <button id="see-more" class="btn btn-danger">see more</button>
         </div>
+        <!-- modal -->
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+        </button>
 
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex justify-content-between gap-4">
+                        <div class="border border-danger border-2 rounded">
+                            <h4>ChatGPT is an AI-powered chatbot platform that uses OpenAI's GPT technology to simulate human conversation.</h4>
+                            <div class="d-flex justify-content-between">
+                                <div class="bg-light plan-card rounded">
+                                    free
+                                </div>
+                                <div class="bg-light plan-card rounded">
+                                    fre
+                                </div>
+                                <div class="bg-light plan-card rounded">
+                                    free
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div>
+
+                                </div>
+                                <div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div  class="border border-danger border-2 rounded">
+                           <div class="d-flex justify-content-center">
+                            <img style="height: 50%;" class="img-fluid rounded" src="https://images.pexels.com/photos/11389808/pexels-photo-11389808.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="">
+                           </div>
+                            <div>
+                                <h4>;ldsjkfjadlsf</h4>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora impedit, saepe, omnis est esse numquam voluptate non recusandae possimus ea ratione, delectus distinctio hic. Eaque quidem laudantium nemo quaerat omnis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <!-- main section end -->
     <!-- custom js -->

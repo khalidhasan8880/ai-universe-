@@ -52,7 +52,7 @@ const displayData = (allTools, seeAll) => {
                 <h4>${element.name}</h4>
                 <span><i class="fa-solid fa-calendar-days"></i>  ${element.published_in}</span>
             </div>
-            <button class="btn btn-primary">Details <i class="fa-solid fa-arrow-right"></i> </button>
+            <button onclick="details('${element.id}')" class="btn btn-primary">Details <i class="fa-solid fa-arrow-right"></i> </button>
         </li>`;
         div.appendChild(cardFooter);
     });
@@ -60,11 +60,10 @@ const displayData = (allTools, seeAll) => {
 
     
 }
-
+// see more click handleer
 document.getElementById('see-more').addEventListener('click', function (params) {
     getData(true)
 })
-
 
 // spinner 
 const spinner = (isSpin)=>{
@@ -77,5 +76,16 @@ const spinner = (isSpin)=>{
     }
 }
 
+
+// modal
+const details = (id) => {
+    fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
+        .then(res => res.json())
+        .then(data => console.log(data.data))
+}
+
+
+
+
+
 getData()
-console.log(seeMore);
