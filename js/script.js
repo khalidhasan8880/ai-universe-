@@ -11,6 +11,14 @@ const getData = (seeAll) => {
 
 const displayData = (allTools, seeAll) => {
     
+    console.log(allTools.published_in);
+    allTools.sort((a, b) => {
+        const dateA = new Date(a.published_in);
+        const dateB = new Date(b.published_in);
+        return dateA - dateB;
+      });
+
+
     const cardContainer = document.getElementById('card-container')
     if (allTools.length > 6) {
         allTools = allTools.slice(0,6)
@@ -126,9 +134,9 @@ const modalShow = (data) => {
                            <div class="d-flex justify-content-center">
                             <img class="img-fluid rounded" src="${data.image_link[0]}" alt="">
                            </div>
-                            <div>
-                                <h4>${data.id}</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora impedit, saepe, omnis est esse numquam voluptate non recusandae possimus ea ratione, delectus distinctio hic. Eaque quidem laudantium nemo quaerat omnis.</p>
+                            <div class="text-center">
+                                <h4>${data.input_output_examples[0].input ?data.input_output_examples[0].input : 'no data Found'}</h4>
+                                <p>${data.input_output_examples[0].output ?data.input_output_examples[0].output : 'no data Found'}</p>
                             </div>
                         </div>
                     </div>
