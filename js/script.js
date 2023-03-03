@@ -135,8 +135,8 @@ const modalShow = (data) => {
                             </div>
                            </div>
                             <div class="text-center">
-                                <h4>${data.input_output_examples[0].input ?data.input_output_examples[0].input : 'no data Found'}</h4>
-                                <p>${data.input_output_examples[0].output ?data.input_output_examples[0].output : 'no data Found'}</p>
+                                <h4>${data.input_output_examples[0].input ?data.input_output_examples[0].input : 'No! Not Yet! Take a break!!!'}</h4>
+                                <p>${data.input_output_examples[0].output ?data.input_output_examples[0].output : 'No! Not Yet! Take a break!!!'}</p>
                             </div>
                         </div>
                     </div>
