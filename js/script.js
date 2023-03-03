@@ -144,9 +144,6 @@ const modalShow = (data) => {
     // accuracy chacker: if the accuracy div append any positive value or number the number will be display... else no value no display
     const accuracy= document.getElementById('accuracy')
     const score = document.getElementById('score')
-    console.log();
-
-
     if (parseInt(score.innerText) !== 0) {
         accuracy.classList.remove('d-none')
     }
@@ -157,7 +154,6 @@ const modalShow = (data) => {
     const integrations =document.getElementById('integrations')
     getCommonData(data.integrations,i,integrations);
 }
-
 // common data extractor form any array
 // -------------------------------------
 function getCommonData(element,i,cardBody) {
