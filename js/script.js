@@ -35,7 +35,7 @@ const displayData = (allTools, seeAll) => {
         cardBody.innerHTML = '<h4>Feature</h4>';
 
         let i= 0;
-        getFeatures(element,i, cardBody)
+        getCommonData(element.features,i, cardBody)
         // cardBody.appendChild(p);
         // console.log(features);
         
@@ -83,10 +83,60 @@ const spinner = (isSpin)=>{
 
 
 const details = (id) => {
-    console.log(id);
+    
     fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
     .then(res => res.json())
-    .then(data=> console.log(data.data))
+    .then(data=> modalShow(data.data))
+}
+
+const modalShow = (data) => {
+    console.log(data);
+    document.getElementById('modal-content').innerHTML = `
+    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body row gap-4 p-5">
+                        <div class="col border border-danger border-2 rounded p-3  bg-danger bg-opacity-25">
+                            <h4>${data.description}</h4>
+                            <div class="d-flex justify-content-between text-center">
+                                <div class="bg-light plan-card rounded p-4 d-flex align-items-center">
+                                    <h6 class="text-danger-emphasis"> <span>${data.pricing[0].price ? data.pricing[0].price : 'Free'}</span> <br> ${data.pricing[0].plan ? data.pricing[0].plan : 'Free'}</h6>
+                                </div>
+                                <div class="bg-light plan-card rounded p-4 d-flex align-items-center">
+                                    <h6 class="text-danger-emphasis"> <span>${data.pricing[1].price ? data.pricing[1].price : 'Free'}</span> <br>  ${data.pricing[1].plan ? data.pricing[1].plan : 'Free'}</h6>
+                                </div>
+                                <div class="bg-light plan-card rounded p-4 d-flex align-items-center">
+                                    <h6 class="text-danger-emphasis"> <span>${data.pricing[2].price ? data.pricing[2].price : 'Free'}</span> <br>   ${data.pricing[2].plan ? data.pricing[2].plan : 'Free'}</h6>
+                                </div>
+                            </div>
+                            <div id="featuresAndInegra"class="d-flex justify-content-between">
+                                <div>
+                                <h4>Features</h4>
+                                    <p>1. ${data.features['1'].feature_name ? data.features['1'].feature_name : 'no data found'}</p>
+                                    <p>1. ${data.features['2'].feature_name ? data.features['2'].feature_name : 'no data found'}</p>
+                                    <p>1. ${data.features['3'].feature_name ? data.features['3'].feature_name : 'no data found'}</p>
+                                </div>
+                                <div id="integrations">
+                                    <h4>Integrations</h4>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div  class="col border border-danger border-2 rounded p-3">
+                           <div class="d-flex justify-content-center">
+                            <img class="img-fluid rounded" src="${data.image_link[0]}" alt="">
+                           </div>
+                            <div>
+                                <h4>${data.id}</h4>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora impedit, saepe, omnis est esse numquam voluptate non recusandae possimus ea ratione, delectus distinctio hic. Eaque quidem laudantium nemo quaerat omnis.</p>
+                            </div>
+                        </div>
+                    </div>
+    `
+    let i = 0;
+    const integrations =document.getElementById('integrations')
+    getCommonData(data.integrations,i,integrations)
+
 }
 
 
@@ -95,15 +145,9 @@ const details = (id) => {
 
 
 
-
-
-
-
-
-
 // ----------------------------------------------
-function getFeatures(element,i,cardBody) {
-        element.features.forEach(x=> {
+function getCommonData(element,i,cardBody) {
+        element.forEach(x=> {
             i++;
             const p = document.createElement('p');
             p.classList.add('ms-2');
