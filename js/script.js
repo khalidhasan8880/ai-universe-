@@ -1,38 +1,45 @@
 let allData ;
-const getData = (seeAll) => {
+const getData = (checker) => {
     spinner(true)
     fetch('https://openapi.programming-hero.com/api/ai/tools')
         .then(res => res.json())
         .then(data => {
             allData = data.data.tools;
-            displayData(data.data.tools, seeAll)}
+            displayData(data.data.tools, checker)}
             )
 }
 
-const displayData = (allTools, seeAll) => {
-    
-    console.log(allTools.published_in);
-    allTools.sort((a, b) => {
-        const dateA = new Date(a.published_in);
-        const dateB = new Date(b.published_in);
-        return dateA - dateB;
-      });
-
-
+const displayData = (allTools, checker) => {
     const cardContainer = document.getElementById('card-container')
-    if (allTools.length > 6) {
-        allTools = allTools.slice(0,6)
+    const seeMore = document.getElementById('see-more')
+    // sort
+    if (checker === 10) {
+        allTools.sort((a, b) => {
+            const dateA = new Date(a.published_in);
+            const dateB = new Date(b.published_in);
+            return dateA - dateB;
+          });
     }
-    if (seeAll) {
+
+    // see all data checker
+    if (allTools.length > 6 ) {
+        allTools = allTools.slice(0,6)
+        seeMore.classList.remove('d-none')
+
+    }
+    else{
+        seeMore.classList.add('d-none')
+    }
+
+    if (checker) {
         cardContainer.innerHTML = '';
         allTools = allData;
+        
     }
 
-
-    
+    // foorEach
     allTools.forEach(element => {
 
-        // console.log(element);
         const div =  document.createElement('div');
         div.classList.add('card');
         div.innerHTML = `
@@ -41,19 +48,10 @@ const displayData = (allTools, seeAll) => {
         const cardBody  = document.createElement('div');
         cardBody.classList.add('card-body');
         cardBody.innerHTML = '<h4>Feature</h4>';
-
+        // create element and append section
         let i= 0;
         getCommonData(element.features,i, cardBody)
-        // cardBody.appendChild(p);
-        // console.log(features);
         
-        // element.features.forEach(x=> {
-        //     i++;
-        //     const p = document.createElement('p');
-        //     p.classList.add('ms-2');
-        //     p.innerHTML= ` ${i}. ${x}`;
-        //     cardBody.appendChild(p);
-        // })
         div.appendChild(cardBody);
         cardContainer.appendChild(div);
         const cardFooter = document.createElement('ul');
@@ -69,14 +67,15 @@ const displayData = (allTools, seeAll) => {
         div.appendChild(cardFooter);
     });
     spinner(false)
-
-    
 }
+
 // see more click handleer
-document.getElementById('see-more').addEventListener('click', function (params) {
+document.getElementById('see-more').addEventListener('click', function () {
     getData(true)
 })
-
+document.getElementById('sort-btn').addEventListener('click', function (params) {
+    getData(10)
+})
 // spinner 
 const spinner = (isSpin)=>{
     const spinnerDiv = document.getElementById('spinner');
@@ -87,16 +86,14 @@ const spinner = (isSpin)=>{
         spinnerDiv.classList.add('d-none')
     }
 }
-
-
-
+// single data fatch
 const details = (id) => {
     
     fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
     .then(res => res.json())
     .then(data=> modalShow(data.data))
 }
-
+// modal displayer
 const modalShow = (data) => {
     console.log(data);
     document.getElementById('modal-content').innerHTML = `
@@ -104,20 +101,20 @@ const modalShow = (data) => {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body row gap-4 p-5">
-                        <div class="col border border-danger border-2 rounded p-3  bg-danger bg-opacity-25">
-                            <h4>${data.description}</h4>
-                            <div class="d-flex justify-content-between text-center">
-                                <div class="bg-light plan-card rounded p-4 d-flex align-items-center">
+                        <div class="col border border-danger border-2 rounded p-3 bg-danger bg-opacity-25">
+                            <h4 class="py-2">${data.description}</h4>
+                            <div class="d-flex flex-wrap gap-2 justify-content-between text-center">
+                                <div class="bg-light plan-card rounded p-4 d-flex align-items-center justify-content-center ">
                                     <h6 class="text-danger-emphasis"> <span>${data.pricing[0].price ? data.pricing[0].price : 'Free'}</span> <br> ${data.pricing[0].plan ? data.pricing[0].plan : 'Free'}</h6>
                                 </div>
-                                <div class="bg-light plan-card rounded p-4 d-flex align-items-center">
+                                <div class="bg-light plan-card rounded p-4 d-flex align-items-center justify-content-center ">
                                     <h6 class="text-danger-emphasis"> <span>${data.pricing[1].price ? data.pricing[1].price : 'Free'}</span> <br>  ${data.pricing[1].plan ? data.pricing[1].plan : 'Free'}</h6>
                                 </div>
-                                <div class="bg-light plan-card rounded p-4 d-flex align-items-center">
+                                <div class="bg-light plan-card rounded p-4 d-flex align-items-center justify-content-center ">
                                     <h6 class="text-danger-emphasis"> <span>${data.pricing[2].price ? data.pricing[2].price : 'Free'}</span> <br>   ${data.pricing[2].plan ? data.pricing[2].plan : 'Free'}</h6>
                                 </div>
                             </div>
-                            <div id="featuresAndInegra"class="d-flex justify-content-between">
+                            <div id="featuresAndInegra"class="d-flex justify-content-between py-2">
                                 <div>
                                 <h4>Features</h4>
                                     <p>1. ${data.features['1'].feature_name ? data.features['1'].feature_name : 'no data found'}</p>
@@ -132,7 +129,10 @@ const modalShow = (data) => {
                         </div>
                         <div  class="col border border-danger border-2 rounded p-3">
                            <div class="d-flex justify-content-center">
-                            <img class="img-fluid rounded" src="${data.image_link[0]}" alt="">
+                            <div class="position-relative">
+                            <div id="accuracy" class="d-none text-light position-absolute top-0 end-0 px-4 py-1 m-2 bg-danger rounded"> <span id="score">${((data.accuracy.score) * 100) ? ((data.accuracy.score) * 100) : 0 }</span>% accuracy </div>
+                                <img class="img-fluid rounded" src="${data.image_link[0]}" alt="">
+                            </div>
                            </div>
                             <div class="text-center">
                                 <h4>${data.input_output_examples[0].input ?data.input_output_examples[0].input : 'no data Found'}</h4>
@@ -141,19 +141,25 @@ const modalShow = (data) => {
                         </div>
                     </div>
     `
+    // accuracy chacker: if the accuracy div append any positive value or number the number will be display... else no value no display
+    const accuracy= document.getElementById('accuracy')
+    const score = document.getElementById('score')
+    console.log();
+
+
+    if (parseInt(score.innerText) !== 0) {
+        accuracy.classList.remove('d-none')
+    }
+    else{
+        accuracy.classList.add('d-none')
+    }
     let i = 0;
     const integrations =document.getElementById('integrations')
-    getCommonData(data.integrations,i,integrations)
-
+    getCommonData(data.integrations,i,integrations);
 }
 
-
-
-
-
-
-
-// ----------------------------------------------
+// common data extractor form any array
+// -------------------------------------
 function getCommonData(element,i,cardBody) {
         element.forEach(x=> {
             i++;
