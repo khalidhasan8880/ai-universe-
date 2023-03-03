@@ -12,14 +12,7 @@ const getData = (checker) => {
 const displayData = (allTools, checker) => {
     const cardContainer = document.getElementById('card-container')
     const seeMore = document.getElementById('see-more')
-    // sort
-    if (checker === 10) {
-        allTools.sort((a, b) => {
-            const dateA = new Date(a.published_in);
-            const dateB = new Date(b.published_in);
-            return dateA - dateB;
-          });
-    }
+    
 
     // see all data checker
     if (allTools.length > 6 ) {
@@ -31,12 +24,19 @@ const displayData = (allTools, checker) => {
         seeMore.classList.add('d-none')
     }
 
-    if (checker) {
-        cardContainer.innerHTML = '';
+    if (checker  === 5) {
         allTools = allData;
         
     }
-
+    // sort
+    if (checker === 10) {
+        allTools.sort((a, b) => {
+            const dateA = new Date(a.published_in);
+            const dateB = new Date(b.published_in);
+            return dateA - dateB;
+          });
+    }
+    cardContainer.innerHTML = '';
     // foorEach
     allTools.forEach(element => {
 
@@ -62,7 +62,7 @@ const displayData = (allTools, checker) => {
                 <h4>${element.name}</h4>
                 <span><i class="fa-solid fa-calendar-days"></i>  ${element.published_in}</span>
             </div>
-            <button onclick="details('${element.id}')" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#detailModal">Details <i class="fa-solid fa-arrow-right"></i> </button>
+            <button onclick="details('${element.id}')" class="btn btn-primary rounded-circle bg-danger bg-opacity-25 text-danger border-0"  data-bs-toggle="modal" data-bs-target="#detailModal"> <i class="fa-solid fa-arrow-right"></i> </button>
         </li>`;
         div.appendChild(cardFooter);
     });
@@ -71,9 +71,9 @@ const displayData = (allTools, checker) => {
 
 // see more click handleer
 document.getElementById('see-more').addEventListener('click', function () {
-    getData(true)
+    getData(5)
 })
-document.getElementById('sort-btn').addEventListener('click', function (params) {
+document.getElementById('sort-btn').addEventListener('click', function () {
     getData(10)
 })
 // spinner 
