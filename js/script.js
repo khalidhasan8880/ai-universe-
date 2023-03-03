@@ -8,6 +8,8 @@ const displayData = (data) => {
     
     const cardContainer = document.getElementById('card-container')
     data.tools.forEach(element => {
+
+        console.log(element);
         const div =  document.createElement('div');
         div.classList.add('card');
         div.innerHTML = `
@@ -30,7 +32,13 @@ const displayData = (data) => {
         const cardFooter = document.createElement('ul');
         cardFooter.classList.add('list-group');
         cardFooter.classList.add('list-group-flush');
-        cardFooter.innerHTML=`<li class="list-group-item">An item</li>`;
+        cardFooter.innerHTML=`<li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h4>${element.name}</h4>
+                <span><i class="fa-solid fa-calendar-days"></i>  ${element.published_in}</span>
+            </div>
+            <button class="btn btn-primary">Details <i class="fa-solid fa-arrow-right"></i> </button>
+        </li>`;
         div.appendChild(cardFooter);
     });
 
