@@ -1,14 +1,38 @@
 const getData = () => {
     fetch('https://openapi.programming-hero.com/api/ai/tools')
-    .then(res => res.json())
-    .then(data => displayData(data.data))
+        .then(res => res.json())
+        .then(data => displayData(data.data))
 }
 
 const displayData = (data) => {
+    
+    const cardContainer = document.getElementById('card-container')
     data.tools.forEach(element => {
-        console.log(element)
+        const div =  document.createElement('div');
+        div.classList.add('card');
+        div.innerHTML = `
+                <img src="${element.image}"class="card-img-top" alt="...">
+            `
+        const cardBody  = document.createElement('div');
+        cardBody.classList.add('card-body');
+        cardBody.innerHTML = '<h4>Feature</h4>';
+
+        let i= 0;
+        element.features.forEach(x=> {
+            i++;
+            const p = document.createElement('p');
+            p.classList.add('ms-2');
+            p.innerHTML= ` ${i}. ${x}`;
+            cardBody.appendChild(p);
+        })
+        div.appendChild(cardBody);
+        cardContainer.appendChild(div);
+        const cardFooter = document.createElement('ul');
+        cardFooter.classList.add('list-group');
+        cardFooter.classList.add('list-group-flush');
+        cardFooter.innerHTML=`<li class="list-group-item">An item</li>`;
+        div.appendChild(cardFooter);
     });
-    
-    
+
 }
 getData()
