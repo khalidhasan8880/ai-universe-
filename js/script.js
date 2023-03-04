@@ -170,7 +170,7 @@ const modalShow = (data) => {
 // -------------------------------------
 function getCommonData(element,i,cardBody) {
     if (element === null) {
-        const integrations =document.getElementById('integrations').innerHTML = `<h4>Integrations</h4> <p>No data Found</p>`;
+        document.getElementById('integrations').innerHTML = `<h4>Integrations</h4> <p>No data Found</p>`;
     }
     else{
         element.forEach(x=> {
