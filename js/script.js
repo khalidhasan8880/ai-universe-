@@ -1,4 +1,6 @@
 let allData ;
+let x ;
+
 const getData = (checker) => {
     spinner(true)
     fetch('https://openapi.programming-hero.com/api/ai/tools')
@@ -14,28 +16,29 @@ const displayData = (allTools, checker) => {
     const seeMore = document.getElementById('see-more')
     
 
+       // sort
+   if (x === true ) {
+    allData.sort((a, b) => {
+        const dateA = new Date(a.published_in);
+        const dateB = new Date(b.published_in);
+        return dateA - dateB;
+    });
+}
+  
     // see all data checker
     if (allTools.length > 6 ) {
         allTools = allTools.slice(0,6)
         seeMore.classList.remove('d-none')
 
     }
-    else{
-        seeMore.classList.add('d-none')
-    }
+    
 
     if (checker  === 5) {
         allTools = allData;
+        seeMore.classList.add('d-none')
         
     }
-    // sort
-    if (checker === 10) {
-        allTools.sort((a, b) => {
-            const dateA = new Date(a.published_in);
-            const dateB = new Date(b.published_in);
-            return dateA - dateB;
-          });
-    }
+   
     cardContainer.innerHTML = '';
     // foorEach
     allTools.forEach(element => {
@@ -73,9 +76,14 @@ const displayData = (allTools, checker) => {
 document.getElementById('see-more').addEventListener('click', function () {
     getData(5)
 })
+
 document.getElementById('sort-btn').addEventListener('click', function () {
-    getData(10)
+    getData()
+    x=true;
+    
 })
+
+console.log(x);
 // spinner 
 const spinner = (isSpin)=>{
     const spinnerDiv = document.getElementById('spinner');
@@ -95,8 +103,57 @@ const details = (id) => {
 }
 // modal displayer
 const modalShow = (data) => {
-    console.log(data);
-    document.getElementById('modal-content').innerHTML = `
+    if (data.id === 12) {
+        document.getElementById('modal-content').innerHTML = `
+        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body row gap-4 p-5">
+                            <div class="col border border-danger border-2 rounded p-3 bg-danger bg-opacity-25">
+                                <h4 class="py-2"></h4>
+                                <div class="d-flex flex-wrap gap-2 justify-content-between text-center">
+                                    <div class="bg-light plan-card rounded p-4 d-flex align-items-center justify-content-center ">
+                                        <h6 class="text-danger-emphasis"> <span>Free</h6>
+                                    </div>
+                                    <div class="bg-light plan-card rounded p-4 d-flex align-items-center justify-content-center ">
+                                        <h6 class="text-danger-emphasis"> <span>free</h6>
+                                    </div>
+                                    <div class="bg-light plan-card rounded p-4 d-flex align-items-center justify-content-center ">
+                                        <h6 class="text-danger-emphasis"> <span>Free</h6>
+                                    </div>
+                                </div>
+                                <div id="featuresAndInegra"class="d-flex justify-content-between py-2">
+                                    <div>
+                                    <h4>Features</h4>
+                                        <p>1. 'no data found'</p>
+                                        <p>1. 'no data found'</p>
+                                        <p>1. 'no data found'</p>
+                                    </div>
+                                    <div id="integrations">
+                                        <h4>Integrations</h4>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="col border border-danger border-2 rounded p-3">
+                               <div class="d-flex justify-content-center">
+                                <div class="position-relative">
+                                
+                                    <img class="img-fluid rounded" src="$" alt="">
+                                </div>
+                               </div>
+                                <div class="text-center">
+                                    <h4> 'No! Not Yet! Take a break!!!'</h4>
+                                    <p>'No! Not Yet! Take a break!!!'</p>
+                                </div>
+                            </div>
+                        </div>
+        `
+        return alert('some data not found')
+    }
+    console.log(data.id);
+    if (data.id !== 12) {
+        document.getElementById('modal-content').innerHTML = `
     <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -141,6 +198,10 @@ const modalShow = (data) => {
                         </div>
                     </div>
     `
+        
+    
+    }
+    
     // accuracy chacker: if the accuracy div append any positive value or number the number will be display... else no value no display
     const accuracy= document.getElementById('accuracy')
     const score = document.getElementById('score')
