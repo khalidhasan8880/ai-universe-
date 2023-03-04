@@ -103,56 +103,8 @@ const details = (id) => {
 }
 // modal displayer
 const modalShow = (data) => {
-    if (data.id === 12) {
-        document.getElementById('modal-content').innerHTML = `
-        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body row gap-4 p-5">
-                            <div class="col border border-danger border-2 rounded p-3 bg-danger bg-opacity-25">
-                                <h4 class="py-2"></h4>
-                                <div class="d-flex flex-wrap gap-2 justify-content-between text-center">
-                                    <div class="bg-light plan-card rounded p-4 d-flex align-items-center justify-content-center ">
-                                        <h6 class="text-danger-emphasis"> <span>Free</h6>
-                                    </div>
-                                    <div class="bg-light plan-card rounded p-4 d-flex align-items-center justify-content-center ">
-                                        <h6 class="text-danger-emphasis"> <span>free</h6>
-                                    </div>
-                                    <div class="bg-light plan-card rounded p-4 d-flex align-items-center justify-content-center ">
-                                        <h6 class="text-danger-emphasis"> <span>Free</h6>
-                                    </div>
-                                </div>
-                                <div id="featuresAndInegra"class="d-flex justify-content-between py-2">
-                                    <div>
-                                    <h4>Features</h4>
-                                        <p>1. 'no data found'</p>
-                                        <p>1. 'no data found'</p>
-                                        <p>1. 'no data found'</p>
-                                    </div>
-                                    <div id="integrations">
-                                        <h4>Integrations</h4>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div  class="col border border-danger border-2 rounded p-3">
-                               <div class="d-flex justify-content-center">
-                                <div class="position-relative">
-                                
-                                    <img class="img-fluid rounded" src="$" alt="">
-                                </div>
-                               </div>
-                                <div class="text-center">
-                                    <h4> 'No! Not Yet! Take a break!!!'</h4>
-                                    <p>'No! Not Yet! Take a break!!!'</p>
-                                </div>
-                            </div>
-                        </div>
-        `
-        return alert('some data not found')
-    }
-    console.log(data.id);
-    if (data.id !== 12) {
+    console.log(data);
+    
         document.getElementById('modal-content').innerHTML = `
     <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -162,21 +114,21 @@ const modalShow = (data) => {
                             <h4 class="py-2">${data.description}</h4>
                             <div class="d-flex flex-wrap gap-2 justify-content-between text-center">
                                 <div class="bg-light plan-card rounded p-4 d-flex align-items-center justify-content-center ">
-                                    <h6 class="text-danger-emphasis"> <span>${data.pricing[0].price ? data.pricing[0].price : 'Free'}</span> <br> ${data.pricing[0].plan ? data.pricing[0].plan : 'Free'}</h6>
+                                    <h6 class="text-danger-emphasis"> <span>${data.pricing ? data.pricing[0].price ? data.pricing[0].price : 'Free' : 'Free'}</span> <br> ${data.pricing ? data.pricing[0].plan ? data.pricing[0].plan : 'Free' : 'Free'}</h6>
                                 </div>
                                 <div class="bg-light plan-card rounded p-4 d-flex align-items-center justify-content-center ">
-                                    <h6 class="text-danger-emphasis"> <span>${data.pricing[1].price ? data.pricing[1].price : 'Free'}</span> <br>  ${data.pricing[1].plan ? data.pricing[1].plan : 'Free'}</h6>
+                                    <h6 class="text-danger-emphasis"> <span>${data.pricing ? data.pricing[1].price ? data.pricing[1].price : 'Free' : 'Free'}</span> <br>  ${data.pricing ? data.pricing[1].plan ? data.pricing[1].plan : 'Free' : 'Free'}</h6>
                                 </div>
                                 <div class="bg-light plan-card rounded p-4 d-flex align-items-center justify-content-center ">
-                                    <h6 class="text-danger-emphasis"> <span>${data.pricing[2].price ? data.pricing[2].price : 'Free'}</span> <br>   ${data.pricing[2].plan ? data.pricing[2].plan : 'Free'}</h6>
+                                    <h6 class="text-danger-emphasis"> <span>${data.pricing ? data.pricing[2].price ? data.pricing[2].price : 'Free' : 'Free'}</span> <br>  ${data.pricing ? data.pricing[2].plan ? data.pricing[2].plan : 'Free' : 'Free'}</h6>
                                 </div>
                             </div>
                             <div id="featuresAndInegra"class="d-flex justify-content-between py-2">
                                 <div>
                                 <h4>Features</h4>
-                                    <p>1. ${data.features['1'].feature_name ? data.features['1'].feature_name : 'no data found'}</p>
-                                    <p>1. ${data.features['2'].feature_name ? data.features['2'].feature_name : 'no data found'}</p>
-                                    <p>1. ${data.features['3'].feature_name ? data.features['3'].feature_name : 'no data found'}</p>
+                                    <p>1. ${data.features? data.features['1'].feature_name ? data.features['1'].feature_name : 'no data found' : 'no data found'}</p>
+                                    <p>1. ${data.features? data.features['2'].feature_name ? data.features['2'].feature_name : 'no data found' : 'no data found'}</p>
+                                    <p>1. ${data.features? data.features['3'].feature_name ? data.features['3'].feature_name : 'no data found' : 'no data found'}</p>
                                 </div>
                                 <div id="integrations">
                                     <h4>Integrations</h4>
@@ -188,21 +140,17 @@ const modalShow = (data) => {
                            <div class="d-flex justify-content-center">
                             <div class="position-relative">
                             <div id="accuracy" class="d-none text-light position-absolute top-0 end-0 px-4 py-1 m-2 bg-danger rounded"> <span id="score">${((data.accuracy.score) * 100) ? ((data.accuracy.score) * 100) : 0 }</span>% accuracy </div>
-                                <img class="img-fluid rounded" src="${data.image_link[0]}" alt="">
+                                <img class="img-fluid rounded" src="${data.image_link? data.image_link[0] ? data.image_link[0] : data.image_link : 'Image' }" alt="">
                             </div>
                            </div>
                             <div class="text-center">
-                                <h4>${data.input_output_examples[0].input ?data.input_output_examples[0].input : 'No! Not Yet! Take a break!!!'}</h4>
-                                <p>${data.input_output_examples[0].output ?data.input_output_examples[0].output : 'No! Not Yet! Take a break!!!'}</p>
+                                <h4>${data.input_output_examples ? data.input_output_examples[0].input ? data.input_output_examples[0].input : 'Can you give any example?' : 'Can you give any example?'}</h4>
+                                <p>$${data.input_output_examples ? data.input_output_examples[1].input ? data.input_output_examples[1].input : 'No! Not Yet! Take a break!!!' : 'No! Not Yet! Take a break!!!'}</p>
                             </div>
                         </div>
                     </div>
     `
-        
-    
-    }
-    
-    // accuracy chacker: if the accuracy div append any positive value or number the number will be display... else no value no display
+         // accuracy chacker: if the accuracy div append any positive value or number the number will be display... else no value no display
     const accuracy= document.getElementById('accuracy')
     const score = document.getElementById('score')
     if (parseInt(score.innerText) !== 0) {
@@ -211,13 +159,20 @@ const modalShow = (data) => {
     else{
         accuracy.classList.add('d-none')
     }
+    // data pass to common function
     let i = 0;
+        
     const integrations =document.getElementById('integrations')
     getCommonData(data.integrations,i,integrations);
-}
+    }
+    
 // common data extractor form any array
 // -------------------------------------
 function getCommonData(element,i,cardBody) {
+    if (element === null) {
+        const integrations =document.getElementById('integrations').innerHTML = `<h4>Integrations</h4> <p>No data Found</p>`;
+    }
+    else{
         element.forEach(x=> {
             i++;
             const p = document.createElement('p');
@@ -225,6 +180,8 @@ function getCommonData(element,i,cardBody) {
             p.innerHTML= ` ${i}. ${x}`;
             cardBody.appendChild(p);
         })
+    }
+        
 }
 
 getData()
